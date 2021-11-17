@@ -1,14 +1,38 @@
 import express from "express";
-import { getUsers, Register, Login, Logout } from "../controllers/users.js";
+import { getUsers } from "../controllers/users.js";
 import { verifyToken } from "../middleware/verifytoken.js";
 import { refreshToken } from "../controllers/refreshtoken.js";
+import { register, login, logout } from "../controllers/auth.js";
+import { validateRegister } from "../middleware/customvalidators.js";
+import {
+  createProduct,
+  getAllProducts,
+  getProductsByUserId,
+  deleteProduct,
+  getProductDetails,
+  updateProduct,
+} from "../controllers/product.js";
 
 const router = express.Router();
 
-router.get("/users", verifyToken, getUsers);
-router.post("/users", Register);
-router.post("/login", Login);
+// Auth
+router.post("/register", validateRegister, register);
+router.post("/login", login);
+router.delete("/logout", logout);
 router.get("/token", refreshToken);
-router.delete("/logout", Logout);
+
+// User
+router.get("/users", verifyToken, getUsers);
+// router.post("/users", Register);
+// router.post("/login", Login);
+
+// Product
+router.post("/createproduct", verifyToken, createProduct);
+router.get("/getAllProducts", getAllProducts);
+router.get("/getUserProducts", verifyToken, getProductsByUserId);
+router.get("/product/:id", getProductDetails);
+router.delete("/product/:id", verifyToken, deleteProduct);
+router.put("/product/:id", verifyToken, updateProduct);
+// router.get("/searchproduct/:keyword", getProductsByKeyword);
 
 export default router;

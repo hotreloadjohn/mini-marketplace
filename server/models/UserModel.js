@@ -1,10 +1,11 @@
 import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import db from "../config/database.js";
+import Product from "./ProductModel.js";
 
 const { DataTypes } = Sequelize;
 
-const Users = db.define(
-  "users",
+const User = db.define(
+  "user",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -29,4 +30,6 @@ const Users = db.define(
   }
 );
 
-export default Users;
+User.hasMany(Product);
+
+export default User;

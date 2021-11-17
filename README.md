@@ -1,3 +1,5 @@
+![Screenshot](screenshot.gif)
+
 # Mini MarketPlace
 
 **You are required to build a mini online marketplace web platform for buying and selling products from end-users. The application should consist of a frontend and backend Restful web services using the Node, Express, React JS & MySQL stack.**

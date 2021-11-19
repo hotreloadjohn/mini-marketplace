@@ -39,8 +39,8 @@ export const createProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll({ attributes: { exclude: ["id"] } });
-    console.log(products[0]);
+    // const products = await Product.findAll({ attributes: { exclude: ["id"] } });
+    const products = await Product.findAll();
     res.status(200).json(products);
   } catch (error) {}
 };
@@ -65,7 +65,7 @@ export const deleteProduct = async (req, res) => {
         id,
       },
     });
-
+    // Might need user id, only owner/admin can delete own product
     if (product) {
       await product.destroy();
       res.status(200).json(product);

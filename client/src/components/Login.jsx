@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 // import { useDoLoginMutation } from "../services/loginApi";
 import AuthService from "../services/auth.service";
 
-const Login = ({ isModal, setModal }) => {
+const Login = ({ isModal, setLoginModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,10 +36,7 @@ const Login = ({ isModal, setModal }) => {
   // if (isModal) {
   //   return (
   //     <>
-  //       <div
-  //         onClick={() => setModal(false)}
-  //         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-  //       >
+  //       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
   //         <div className="relative w-auto my-6 mx-auto max-w-3xl">
   //           {/*content*/}
   //           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -52,66 +49,50 @@ const Login = ({ isModal, setModal }) => {
   //                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
   //               </svg>
   //             </button>
-  //             <div class="bg-white md:shadow-lg shadow-none rounded p-6 w-96">
-  //               <form class="space-y-5 mt-5">
-  //                 <div class="mb-4 relative">
+  //             <div className="bg-white md:shadow-lg shadow-none rounded p-6 w-96">
+  //               <form className="space-y-5 mt-5">
+  //                 <div className="mb-4 relative">
   //                   <input
   //                     id="email"
-  //                     class="w-full rounded px-3 border border-gray-500 pt-5 pb-2 focus:outline-none input active:outline-none"
+  //                     className="w-full rounded px-3 border border-gray-500 pt-5 pb-2 focus:outline-none input active:outline-none"
   //                     type="text"
   //                     autofocus
   //                     placeholder="Your Email"
   //                   />
   //                   <label
   //                     for="email"
-  //                     class="label absolute mb-0 -mt-2 pt-4 pl-3 leading-tighter text-gray-500 text-base mt-2 cursor-text"
+  //                     className="label absolute mb-0 -mt-2 pt-4 pl-3 leading-tighter text-gray-500 text-base mt-2 cursor-text"
   //                   ></label>
   //                 </div>
-  //                 <div class="relative flex items-center border border-gray-500 focus:ring focus:border-blue-500 rounded">
+  //                 <div className="relative flex items-center border border-gray-500 focus:ring focus:border-blue-500 rounded">
   //                   <input
   //                     id="password"
-  //                     class="w-full rounded px-3 pt-5 outline-none pb-2 focus:outline-none active:outline-none input active:border-blue-500"
+  //                     className="w-full rounded px-3 pt-5 outline-none pb-2 focus:outline-none active:outline-none input active:border-blue-500"
   //                     type="password"
   //                     placeholder="Password"
   //                   />
   //                   <label
   //                     for="password"
-  //                     class="label absolute mb-0 -mt-2 pt-4 pl-3 leading-tighter text-gray-500 text-base mt-2 cursor-text"
+  //                     className="label absolute mb-0 -mt-2 pt-4 pl-3 leading-tighter text-gray-500 text-base mt-2 cursor-text"
   //                   ></label>
   //                   <a className="text-sm font-bold text-blue-700 hover:bg-blue-100 rounded-full px-2 py-1 mr-1 leading-normal cursor-pointer">
   //                     show
   //                   </a>
   //                 </div>
-  //                 <div class="-m-2">
+  //                 <div className="-m-2">
   //                   <a
-  //                     class="font-bold text-blue-700 hover:bg-blue-200 hover:underline hover:p-5 p-2 rounded-full"
+  //                     className="font-bold text-blue-700 hover:bg-blue-200 hover:underline hover:p-5 p-2 rounded-full"
   //                     href="#"
   //                   >
   //                     Forgot password?
   //                   </a>
   //                 </div>
-  //                 <button class="w-full text-center bg-blue-700 hover:bg-blue-900 rounded-full text-white py-3 font-medium">
+  //                 <button className="w-full text-center bg-blue-700 hover:bg-blue-900 rounded-full text-white py-3 font-medium">
   //                   Sign in
   //                 </button>
   //               </form>
   //             </div>
   //             {/*footer*/}
-  //             <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-  //               <button
-  //                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-  //                 type="button"
-  //                 onClick={() => setModal(false)}
-  //               >
-  //                 Close
-  //               </button>
-  //               <button
-  //                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-  //                 type="button"
-  //                 onClick={() => setModal(false)}
-  //               >
-  //                 Save Changes
-  //               </button>
-  //             </div>
   //           </div>
   //         </div>
   //       </div>
@@ -119,6 +100,65 @@ const Login = ({ isModal, setModal }) => {
   //     </>
   //   );
   // }
+
+  if (isModal) {
+    return (
+      <div className="flex justify-center items-center fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="flex justify-end">
+              <button onClick={() => setLoginModal(false)}>
+                <svg
+                  className="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 18 18"
+                >
+                  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
+                </svg>
+              </button>
+            </div>
+            <form>
+              <div class="mb-6">
+                <label
+                  for="email"
+                  class="text-sm font-medium text-gray-900 block mb-2"
+                >
+                  Your email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="name@flowbite.com"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="password"
+                  class="text-sm font-medium text-gray-900 block mb-2"
+                >
+                  Your password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+              >
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

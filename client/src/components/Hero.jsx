@@ -10,14 +10,10 @@ const Hero = () => {
         src={HeroImg}
         alt="hero"
       />
-      {/* <input
-        className="h-14 w-64 ml-20 mt-10 p-2"
-        type="text"
-        placeholder="Looking for something?"
-      /> */}
-      <div className="flex">
+      <div className="flex"> Add a carsousel slider </div>
+      {/* <div className="flex">
         <SearchBar />
-      </div>
+      </div> */}
     </div>
   );
 };

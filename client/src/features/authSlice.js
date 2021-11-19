@@ -3,8 +3,6 @@ import { setMessage } from "./msgSlice";
 
 import AuthService from "../services/auth.service";
 
-const user = JSON.parse(localStorage.getItem("user"));
-
 export const register = createAsyncThunk(
   "auth/register",
   async ({ username, email, password }, thunkAPI) => {
@@ -49,13 +47,22 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });
 
-const initialState = user
-  ? { isLoggedIn: true, user }
-  : { isLoggedIn: false, user: null };
+// https://codesandbox.io/s/github/reduxjs/redux-toolkit/tree/master/examples/query/react/authentication?from-embed=&file=/src/features/auth/authSlice.tsx:386-414
+
+const initialState = {
+  user: null,
+  token: null,
+};
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
+  reducers: {
+    setCredentials: (state, { payload: { user, token } }) => {
+      state.user = user;
+      state.token = token;
+    },
+  },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
@@ -77,6 +84,9 @@ const authSlice = createSlice({
     },
   },
 });
+
+export const { setCredentials } = authSlice.actions;
+export const selectCurrentUser = (state) => state.auth.user;
 
 const { reducer } = authSlice;
 export default reducer;

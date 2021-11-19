@@ -14,12 +14,7 @@ export const register = async (req, res) => {
 
   if (user.length > 0) {
     return res.status(200).json({
-      errors: [
-        {
-          email: user.email,
-          msg: "Email already registered",
-        },
-      ],
+      error: "Email already registered",
     });
   }
 
@@ -98,7 +93,11 @@ export const login = async (req, res) => {
     maxAge: 24 * 60 * 60 * 1000,
   });
 
-  res.json({ accessToken });
+  res.json({
+    accessToken,
+    refreshToken,
+    user: { userId: user[0].id, name },
+  });
 };
 
 export const logout = async (req, res) => {

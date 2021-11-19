@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRegisterMutation } from "../services/authApi";
+import { useNavigate } from "react-router-dom";
 
 function Register({ setRegisterModal }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const [register, { isLoading, isError }] = useRegisterMutation();
+  const navigate = useNavigate();
+
+  const handleOnSubmit = async (e) => {
+    setError("");
+    e.preventDefault();
+    const data = await register({
+      name,
+      email,
+      password,
+      confPassword,
+    }).unwrap();
+
+    if (data.error) {
+      setError("Email already registered Or Password does not match.");
+      return;
+    }
+
+    setRegisterModal(false);
+    navigate("/");
+  };
   return (
     <div className="flex justify-center items-center fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
-      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+      <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div className="flex justify-end">
             <button onClick={() => setRegisterModal(false)}>
               <svg
@@ -16,67 +45,83 @@ function Register({ setRegisterModal }) {
               </svg>
             </button>
           </div>
-          <form>
+          {isError ? (
+            <p className="text-red-600">
+              Email already registered Or Password does not match.
+            </p>
+          ) : null}
+          {error ? (
+            <p className="text-red-600">
+              Email already registered Or Password does not match.
+            </p>
+          ) : null}
+
+          <form onSubmit={handleOnSubmit}>
             <div className="mb-6">
               <label
-                for="name"
-                class="text-sm font-medium text-gray-900 block mb-2"
+                htmlFor="name"
+                className="text-sm font-medium text-gray-900 block mb-2"
               >
                 Your Name
               </label>
               <input
                 type="text"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="name"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Your Name"
                 required
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
-                for="email"
-                class="text-sm font-medium text-gray-900 block mb-2"
+                htmlFor="email"
+                className="text-sm font-medium text-gray-900 block mb-2"
               >
                 Your email
               </label>
               <input
                 type="email"
-                id="email"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="john@example.com"
                 required
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
-                for="password"
-                class="text-sm font-medium text-gray-900 block mb-2"
+                htmlFor="password"
+                className="text-sm font-medium text-gray-900 block mb-2"
               >
                 Your password
               </label>
               <input
                 type="password"
-                id="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div class="mb-6">
+            <div className="mb-6">
               <label
-                for="password"
-                class="text-sm font-medium text-gray-900 block mb-2"
+                htmlFor="password"
+                className="text-sm font-medium text-gray-900 block mb-2"
               >
                 Confirm password
               </label>
               <input
                 type="password"
-                id="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                name="confpassword"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required
+                onChange={(e) => setConfPassword(e.target.value)}
               />
             </div>
             <button
               type="submit"
-              class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
+              className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full"
             >
               Sign Up
             </button>

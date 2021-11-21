@@ -5,17 +5,19 @@ import messageReducer from "./features/msgSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { api } from "./services/authApi";
+import { productApi } from "./services/productApi";
 import authReducer from "./features/authSlice";
 
 const store = configureStore({
   reducer: {
     message: messageReducer,
     product: productReducer,
-    [api.reducerPath]: api.reducer,
     auth: authReducer,
+    [api.reducerPath]: api.reducer,
+    [productApi.reducerPath]: productApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(api.middleware, productApi.middleware),
 });
 
 setupListeners(store.dispatch);

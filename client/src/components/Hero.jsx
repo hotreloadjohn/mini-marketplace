@@ -1,19 +1,24 @@
 import React from "react";
 import HeroImg from "../assets/heroshop.svg";
-import SearchBar from "./SearchBar";
+import BannerCarousel from "./BannerCarousel";
+import BannerImg from "../assets/banner.png";
 
 const Hero = () => {
   return (
-    <div className="h-48 bg-red-200 flex space-x-14 items-center	justify-center">
-      <img
-        className="md:object-scale-down h-32 w-32"
-        src={HeroImg}
-        alt="hero"
-      />
-      <div className="flex"> Add a carsousel slider </div>
-      {/* <div className="flex">
-        <SearchBar />
-      </div> */}
+    <div className="bg-gray-300 flex items-center justify-center">
+      <BannerCarousel />
+      <div className="flex flex-col space-y-8 ml-6">
+        <img
+          className="md:object-contain h-auto w-2/5"
+          src={BannerImg}
+          alt="banner"
+        />
+        <img
+          className="md:object-scale-down h-32 w-2/5"
+          src={HeroImg}
+          alt="hero"
+        />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import ProductImg from "../assets/product-mock.jpg";
 
 const ProductCard = ({ product }) => {
   // TODO: shift to util
@@ -16,12 +15,19 @@ const ProductCard = ({ product }) => {
     return diffInDays;
   };
 
+  // const getUsername = async (userId) => {
+  //   console.log("getUsername");
+  //   await userService.getUsernameById(userId);
+  // };
+
+  // console.log(product.userId);
+  // getUsername(product.userId);
   return (
     // <div className="bg-white duration-300 flex flex-col max-w-xs rounded-xl shadow-lg space-y-4 transform w-full hover:translate-y-2">
     <div className="bg-white h-30 rounded-lg shadow-md space-y-4">
       <div className="flex flex-row items-center justify-between pt-4 px-4">
         <p className="font-semibold text-sm">
-          <span className="font-bold">Seller:</span> John Ng
+          <span className="font-bold">Seller:</span> {product.user.name}
         </p>
         <p className="text-sm italic">
           Posted {getPostedDays(product.createdAt)} days ago

@@ -15,10 +15,12 @@ const productSlice = createSlice({
     },
     filterProduct: (state, action) => {
       const term = action.payload;
-      if (term === "") {
-        state.filteredProducts = state.products;
-        return;
-      }
+      state.filteredProducts = state.products;
+      console.log(state.filteredProducts);
+      // if (term === "") {
+      //   state.filteredProducts = state.products;
+      //   return;
+      // }
       state.filteredProducts = state.filteredProducts.filter((product) =>
         product.name.toLowerCase().includes(term.toLowerCase())
       );
@@ -28,6 +30,7 @@ const productSlice = createSlice({
 
 const { reducer, actions } = productSlice;
 
-export const getProducts = (state) => state.product.filteredProducts;
+export const getSearchedProducts = (state) => state.product.filteredProducts;
+export const getProducts = (state) => state.product.products;
 export const { setProduct, filterProduct } = actions;
 export default reducer;

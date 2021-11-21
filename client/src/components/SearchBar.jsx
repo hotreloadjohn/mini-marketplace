@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { filterProduct } from "../features/productSlice";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    // console.log(searchTerm);
     dispatch(filterProduct(searchTerm));
+    navigate(`/search/${searchTerm}`);
   };
+
   return (
     <div className="pt-2 relative text-gray-600 w-2/4">
       <form onSubmit={handleOnSubmit}>

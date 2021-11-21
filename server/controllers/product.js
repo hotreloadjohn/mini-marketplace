@@ -12,7 +12,6 @@ export const createProduct = async (req, res) => {
       attributes: ["id"],
     });
 
-    console.log(user);
     if (!user.id) {
       return res.status(400).json({
         errors: [
@@ -40,7 +39,13 @@ export const createProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     // const products = await Product.findAll({ attributes: { exclude: ["id"] } });
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      include: {
+        model: User,
+        attributes: ["name"],
+      },
+    });
+
     res.status(200).json(products);
   } catch (error) {}
 };
@@ -50,7 +55,7 @@ export const getProductsByUserId = async (req, res) => {
     const products = await Product.findAll({
       attributes: { exclude: ["id"] },
       where: {
-        userId: req.body.userId,
+        userId: req.params.id,
       },
     });
     res.status(200).json(products);

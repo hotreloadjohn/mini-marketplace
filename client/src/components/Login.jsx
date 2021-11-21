@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useLoginMutation } from "../services/authApi";
 import { setCredentials } from "../features/authSlice";
-import AuthService from "../services/auth.service";
 import { useDispatch } from "react-redux";
 
 const Login = ({ isModal, setLoginModal }) => {

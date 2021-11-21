@@ -31,5 +31,6 @@ const User = db.define(
 );
 
 User.hasMany(Product);
+Product.belongsTo(User);
 
 export default User;

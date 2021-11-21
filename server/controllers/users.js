@@ -11,6 +11,26 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getUsernameById = async (req, res) => {
+  try {
+    console.log(`Server: getUsernameById ${req.body.id}`);
+    const user = await Users.findOne({
+      attributes: { include: ["name"] },
+      where: {
+        id: req.body.id,
+      },
+    });
+    if (user) {
+      res.json(user.name);
+      return;
+    }
+
+    res.status(404).json({ error: "User name not found" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // export const Register = async (req, res) => {
 //   const { name, email, password, confPassword } = req.body;
 //   if (password !== confPassword)

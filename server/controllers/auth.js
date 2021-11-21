@@ -96,7 +96,7 @@ export const login = async (req, res) => {
   res.json({
     accessToken,
     refreshToken,
-    user: { userId: user[0].id, name },
+    user: { userId: user[0].id, name, email },
   });
 };
 

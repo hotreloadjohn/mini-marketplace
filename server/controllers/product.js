@@ -1,8 +1,17 @@
+import Category from "../models/CategoryModel.js";
 import Product from "../models/ProductModel.js";
 import User from "../models/UserModel.js";
 
 export const createProduct = async (req, res) => {
-  const { email, name, price, productImgUrl } = req.body;
+  const {
+    email,
+    name,
+    price,
+    productImgUrl,
+    condition,
+    description,
+    category,
+  } = req.body;
 
   try {
     const user = await User.findOne({
@@ -22,16 +31,28 @@ export const createProduct = async (req, res) => {
       });
     }
 
-    await Product.create({
-      name,
-      price: parseFloat(price),
-      isSold: false,
-      userId: user.id,
-      productImgUrl,
+    const categoryObj = await Category.findOne({
+      where: {
+        name: category,
+      },
     });
-
-    res.json({ msg: "Product created" });
+    if (categoryObj.id) {
+      await Product.create({
+        name,
+        price: parseFloat(price),
+        isSold: false,
+        userId: user.id,
+        productImgUrl,
+        condition,
+        description,
+        categoryId: categoryObj.id,
+      });
+      res.json({ msg: "Product created" });
+    } else {
+      res.status(400).json({ error: "An error occured" });
+    }
   } catch (error) {
+    res.status(400).json({ error: "An error occured" });
     console.log(error);
   }
 };
@@ -40,10 +61,16 @@ export const getAllProducts = async (req, res) => {
   try {
     // const products = await Product.findAll({ attributes: { exclude: ["id"] } });
     const products = await Product.findAll({
-      include: {
-        model: User,
-        attributes: ["name"],
-      },
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Category,
+          attributes: ["name"],
+        },
+      ],
     });
 
     res.status(200).json(products);
@@ -89,6 +116,16 @@ export const getProductDetails = async (req, res) => {
       where: {
         id,
       },
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Category,
+          attributes: ["name"],
+        },
+      ],
     });
 
     if (product) {

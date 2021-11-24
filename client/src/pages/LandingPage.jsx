@@ -8,21 +8,11 @@ import { useGetAllProductsMutation } from "../services/productApi";
 const LandingPage = () => {
   const dispatch = useDispatch();
 
-  const [getAllProducts, { isLoading }] = useGetAllProductsMutation();
+  const [getAllProducts] = useGetAllProductsMutation();
 
   // Fetch backend product
 
   useEffect(() => {
-    // async function fetchData() {
-    //   try {
-    //     const products = await ProductService.getAllProducts();
-    //     console.log(products);
-    //     dispatch(setProduct(products));
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-    // fetchData();
     async function fetchData() {
       try {
         const products = await getAllProducts();
@@ -33,6 +23,7 @@ const LandingPage = () => {
       }
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

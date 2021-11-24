@@ -7,8 +7,8 @@ import Register from "./Register";
 import SearchBar from "./SearchBar";
 import ProfilePic from "../assets/profile.png";
 import { Link, useNavigate } from "react-router-dom";
+import { persistor } from "../store";
 
-// https://www.youtube.com/watch?v=CKDkb_x3Ssw
 const Navbar = () => {
   const [active, setActive] = useState(false);
   const [loginmodal, setLoginModal] = useState(false);
@@ -53,6 +53,8 @@ const Navbar = () => {
         user: null,
       })
     );
+    setUserMenuToggle(false);
+    persistor.purge();
     navigate("/");
   };
 
@@ -93,11 +95,11 @@ const Navbar = () => {
 
   const showUserNav = () => {
     return (
-      <div className="relative inline-block text-left">
+      <div className="relative inline-block text-left bg-red-300">
         <div className="flex space-x-4 items-center">
           <button
             type="button"
-            className="text-white bg-pink-500 hover:bg-pink-400 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2 text-center mr-6 md:mr-0 uppercase"
+            className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2 text-center mr-6 md:mr-0 uppercase"
             onClick={() => navigate("/sell")}
           >
             Sell
@@ -110,11 +112,7 @@ const Navbar = () => {
             aria-haspopup="true"
             onClick={() => setUserMenuToggle(!userMenuToggle)}
           >
-            <img
-              className="h-8 w-8 rounded-full"
-              src={ProfilePic}
-              alt="user photo"
-            ></img>
+            <img className="h-8 w-8 rounded-full" src={ProfilePic} alt=""></img>
           </button>
         </div>
         <div

@@ -9,27 +9,38 @@ function Register({ setRegisterModal }) {
   const [confPassword, setConfPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [register, { isLoading, isError }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     setError("");
     e.preventDefault();
-    const data = await register({
-      name,
-      email,
-      password,
-      confPassword,
-    }).unwrap();
 
-    if (data.error) {
-      setError("Email already registered Or Password does not match.");
-      return;
+    try {
+      await register({
+        name,
+        email,
+        password,
+        confPassword,
+      }).unwrap();
+      setRegisterModal(false);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      if (err.data.errors[0].msg) {
+        setError(err.data.errors[0].msg);
+      }
+      // if (data.error) {
+      //   console.log(data.error);
+      //   setError(data.error[0]);
+      //   console.log(error);
+      // } else {
+      //   setRegisterModal(false);
+      //   navigate("/");
+      // }
     }
-
-    setRegisterModal(false);
-    navigate("/");
   };
+
   return (
     <div className="flex justify-center items-center fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
       <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
@@ -45,16 +56,8 @@ function Register({ setRegisterModal }) {
               </svg>
             </button>
           </div>
-          {isError ? (
-            <p className="text-red-600">
-              Email already registered Or Password does not match.
-            </p>
-          ) : null}
-          {error ? (
-            <p className="text-red-600">
-              Email already registered Or Password does not match.
-            </p>
-          ) : null}
+
+          {error && <p className="text-red-600">{error}</p>}
 
           <form onSubmit={handleOnSubmit}>
             <div className="mb-6">

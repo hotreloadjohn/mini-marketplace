@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { selectCurrentUser } from "../features/authSlice";
 import { getProducts } from "../features/productSlice";
-import productService from "../services/product.service";
 
 const UserProductListing = () => {
   const user = useSelector(selectCurrentUser);

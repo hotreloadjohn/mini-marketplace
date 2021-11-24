@@ -13,8 +13,8 @@ export const register = async (req, res) => {
   });
 
   if (user.length > 0) {
-    return res.status(200).json({
-      error: "Email already registered",
+    return res.status(422).json({
+      errors: [{ msg: "Email already registered." }],
     });
   }
 
@@ -42,11 +42,11 @@ export const login = async (req, res) => {
     },
   });
 
-  if (!user) {
+  if (user.length === 0) {
     return res.status(400).json({
       errors: [
         {
-          msg: "Invalid credentials",
+          msg: "Wrong username or password.",
         },
       ],
     });

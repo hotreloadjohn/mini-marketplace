@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   // TODO: shift to util
@@ -15,16 +16,17 @@ const ProductCard = ({ product }) => {
     return diffInDays;
   };
 
-  // const getUsername = async (userId) => {
-  //   console.log("getUsername");
-  //   await userService.getUsernameById(userId);
-  // };
+  const navigate = useNavigate();
 
-  // console.log(product.userId);
-  // getUsername(product.userId);
+  const handleSelectProduct = () => {
+    navigate(`/product/${product.id}`);
+  };
   return (
     // <div className="bg-white duration-300 flex flex-col max-w-xs rounded-xl shadow-lg space-y-4 transform w-full hover:translate-y-2">
-    <div className="bg-white h-30 rounded-lg shadow-md space-y-4">
+    <div
+      className="bg-white h-30 rounded-lg shadow-md space-y-4 cursor-pointer"
+      onClick={handleSelectProduct}
+    >
       <div className="flex flex-row items-center justify-between pt-4 px-4">
         <p className="font-semibold text-sm">
           <span className="font-bold">Seller:</span> {product.user.name}
@@ -34,7 +36,7 @@ const ProductCard = ({ product }) => {
         </p>
       </div>
       {/* image */}
-      <div className="flex justify-center cursor-pointer">
+      <div className="flex justify-center">
         <img
           className="w-full h-64 object-fill mx-auto mt-7"
           src={product.productImgUrl}
@@ -49,9 +51,12 @@ const ProductCard = ({ product }) => {
             {product.name}
           </Link>
           {/* category */}
-          <p className="text-gray-500 text-xs">Fruit</p>
+          <p className="text-gray-500 text-xs">{product.category.name}</p>
           <p className="text-gray-800 text-xs py-1">
-            <span className="font-medium">Condition: </span> New
+            <span className="font-medium">Condition: </span>{" "}
+            {product.condition
+              ? product.condition.toUpperCase()
+              : "Not Avaliable"}
           </p>
           <h1 className="font-medium text-2xl">${product.price.toFixed(2)}</h1>
         </div>

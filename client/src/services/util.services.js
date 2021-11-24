@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// To add cloud name to ENV
-const cloudname = "dc2h3s9cn";
-const API_URL = `https://api.cloudinary.com/v1_1/${cloudname}/image/upload`;
+const API_URL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 const uploadImage = (formData) => {
   return axios

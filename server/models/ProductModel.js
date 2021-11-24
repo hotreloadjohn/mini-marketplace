@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
+import Category from "./CategoryModel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -17,6 +18,12 @@ const Product = db.define("products", {
   price: {
     type: DataTypes.FLOAT,
   },
+  description: {
+    type: DataTypes.STRING,
+  },
+  condition: {
+    type: DataTypes.STRING,
+  },
   isSold: {
     type: DataTypes.BOOLEAN,
   },
@@ -25,5 +32,9 @@ const Product = db.define("products", {
     allowNull: false,
   },
 });
+
+// Product.hasOne(Category);
+Category.hasMany(Product);
+Product.belongsTo(Category);
 
 export default Product;

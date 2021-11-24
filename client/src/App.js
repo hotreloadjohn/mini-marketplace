@@ -9,6 +9,7 @@ import UserProductListing from "./pages/UserProductListing";
 import Footer from "./components/Footer";
 import ProductSearchPage from "./pages/ProductSearchPage";
 import SellProductPage from "./pages/SellProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/search/:term" element={<ProductSearchPage />} />
+          <Route exact path="/product/:id" element={<ProductDetailPage />} />
           <Route path="*" element={<LandingPage />} />
           {/* TODO: Make private route */}
           <Route exact path="/listings" element={<UserProductListing />} />

@@ -5,7 +5,7 @@ import BannerImg from "../assets/banner.png";
 
 const Hero = () => {
   return (
-    <div className="bg-gray-300 flex items-center justify-center">
+    <div className="bg-gray-100 flex items-center justify-center">
       <BannerCarousel />
       <div className="flex flex-col space-y-8 ml-6">
         <img

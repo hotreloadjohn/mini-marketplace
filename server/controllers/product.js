@@ -2,6 +2,82 @@ import Category from "../models/CategoryModel.js";
 import Product from "../models/ProductModel.js";
 import User from "../models/UserModel.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: int
+ *           description: The auto-generated id of the User
+ *         name:
+ *           type: string
+ *           description: Name of the product
+ *         price:
+ *           type: float
+ *           description: Price of the product
+ *         description:
+ *           type: string
+ *           description: Description of the product
+ *         condition:
+ *           type: string
+ *           description: Condition of the product
+ *         isSold:
+ *           type: boolean
+ *           description: if product has been sold?
+ *         productImgUrl:
+ *           type: string
+ *           description: Image URL of the product
+ *       example:
+ *         id: d5fE_asz
+ *         title: The New Turing Omnibus
+ *         author: Alexander K. Dewdney
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: int
+ *           description: The auto-generated id of the Category
+ *         name:
+ *           type: string
+ *           description: Product Category
+ *       example:
+ *         id: d5fE_asz
+ *         title: The New Turing Omnibus
+ *         author: Alexander K. Dewdney
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Product
+ *   description: The Product API
+ */
+
+/**
+ * @swagger
+ * /createproduct:
+ *   post:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const createProduct = async (req, res) => {
   const {
     email,
@@ -57,6 +133,22 @@ export const createProduct = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /getAllProducts:
+ *   get:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const getAllProducts = async (req, res) => {
   try {
     // const products = await Product.findAll({ attributes: { exclude: ["id"] } });
@@ -77,6 +169,22 @@ export const getAllProducts = async (req, res) => {
   } catch (error) {}
 };
 
+/**
+ * @swagger
+ * /getUserProducts/:id:
+ *   get:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const getProductsByUserId = async (req, res) => {
   try {
     const products = await Product.findAll({
@@ -98,6 +206,22 @@ export const getProductsByUserId = async (req, res) => {
   } catch (error) {}
 };
 
+/**
+ * @swagger
+ * /product/:id:
+ *   delete:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const deleteProduct = async (req, res) => {
   const id = req.params.id;
   try {
@@ -118,6 +242,22 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /product/:id:
+ *   get:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const getProductDetails = async (req, res) => {
   const id = req.params.id;
   try {
@@ -147,6 +287,22 @@ export const getProductDetails = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /product/:id:
+ *   put:
+ *     summary: Returns the list of all the Users
+ *     tags: [Product]
+ *     responses:
+ *       201:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const updateProduct = async (req, res) => {
   const { name, price, productImgUrl, isSold } = req.body;
   const id = req.params.id;

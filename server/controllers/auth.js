@@ -2,6 +2,43 @@ import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Create a User account
+ *     tags: [User]
+ *     parameters:
+ *       - in: body
+ *         name: register
+ *         description: Register a user account
+ *         schema:
+ *          type: object
+ *          required:
+ *            - name
+ *            - email
+ *            - password
+ *            - confPassword
+ *          properties:
+ *            name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            password:
+ *              type: string
+ *            confPassword:
+ *              type: string
+ *     responses:
+ *       200:
+ *         description: Successfully created an  account
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                  type: string
+ */
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -32,6 +69,22 @@ export const register = async (req, res) => {
   }
 };
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User login
+ *     tags: [User]
+ *     responses:
+ *       401:
+ *         description: User login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -100,6 +153,22 @@ export const login = async (req, res) => {
   });
 };
 
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: User logout
+ *     tags: [User]
+ *     responses:
+ *       401:
+ *         description: User logout
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const logout = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) return res.sendStatus(204);

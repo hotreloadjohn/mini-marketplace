@@ -1,5 +1,56 @@
 import Users from "../models/UserModel.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: int
+ *           description: The auto-generated id of the User
+ *         name:
+ *           type: string
+ *           description: Name of the user
+ *         email:
+ *           type: string
+ *           description: Email of the user
+ *         password:
+ *           type: string
+ *           description: Password of the user
+ *         refresh_token:
+ *           type: string
+ *           description: Refresh_token  of the user
+ *       example:
+ *         id: d5fE_asz
+ *         title: The New Turing Omnibus
+ *         author: Alexander K. Dewdney
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: The User managing API
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Returns the list of all the Users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '../models/UserModel'
+ */
 export const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll({

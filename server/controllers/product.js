@@ -80,10 +80,19 @@ export const getAllProducts = async (req, res) => {
 export const getProductsByUserId = async (req, res) => {
   try {
     const products = await Product.findAll({
-      attributes: { exclude: ["id"] },
       where: {
         userId: req.params.id,
       },
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+        {
+          model: Category,
+          attributes: ["name"],
+        },
+      ],
     });
     res.status(200).json(products);
   } catch (error) {}

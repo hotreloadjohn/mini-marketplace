@@ -26,7 +26,7 @@ function App() {
           <Route exact path="/product/:id" element={<ProductDetailPage />} />
           <Route path="*" element={<LandingPage />} />
           {/* TODO: Make private route */}
-          <Route exact path="/listings" element={<UserProductListing />} />
+          <Route exact path="/mylisting" element={<UserProductListing />} />
           <Route exact path="/sell" element={<SellProductPage />} />
         </Routes>
         <Footer />

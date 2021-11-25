@@ -22,11 +22,15 @@ export const productApi = createApi({
     }),
 
     getAllProducts: builder.mutation({
-      query: () => "getAllProducts",
+      query: () => "/getAllProducts",
     }),
 
     getProductDetailsById: builder.mutation({
       query: (id) => `/product/${id}`,
+    }),
+
+    getUserProductsById: builder.mutation({
+      query: (id) => `/getUserProducts/${id}`,
     }),
   }),
 });
@@ -35,4 +39,5 @@ export const {
   useCreateProductMutation,
   useGetAllProductsMutation,
   useGetProductDetailsByIdMutation,
+  useGetUserProductsByIdMutation,
 } = productApi;

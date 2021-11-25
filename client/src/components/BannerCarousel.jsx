@@ -26,7 +26,7 @@ const BannerCarousel = () => {
     />
   ));
   return (
-    <div className="flex flex-col w-3/5 ml-12">
+    <div className="flex flex-col">
       <CarouselProvider>
         <div className="flex flex-col w-full h-full ">
           <div className="flex justify-evenly items-center w-full">

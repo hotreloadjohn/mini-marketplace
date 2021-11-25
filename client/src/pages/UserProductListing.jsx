@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { selectCurrentUser } from "../features/authSlice";
 import { getProducts } from "../features/productSlice";
+import { useGetUserProductsByIdMutation } from "../services/productApi";
 
 const UserProductListing = () => {
   const user = useSelector(selectCurrentUser);
-  const products = useSelector(getProducts);
+  // const products = useSelector(getProducts);
 
-  let userProducts = products.filter(
-    (product) => product.user.name === user.name
-  );
+  // let userProducts = products.filter(
+  //   (product) => product.user.name === user.name
+  // );
+
+  const [userProducts, setUserProducts] = useState([]);
+  const [getUserProduct, { isLoading }] = useGetUserProductsByIdMutation();
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await getUserProduct(user.userId);
+      setUserProducts(res.data);
+    }
+    fetchData();
+  }, []);
 
   return (
     <>

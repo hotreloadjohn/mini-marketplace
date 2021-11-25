@@ -18,18 +18,10 @@ const SellProductPage = () => {
 
   const [createproduct] = useCreateProductMutation();
 
-  const uploadFile = async () => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append(
-      "upload_preset",
-      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
-    );
-
-    const res = await utilsService.uploadImage(formData);
-    if (res) {
+  const createNewProduct = async (productImgUrl) => {
+    try {
       const data = await createproduct({
-        productImgUrl: res.url,
+        productImgUrl,
         email: user.email,
         name,
         price,
@@ -44,6 +36,24 @@ const SellProductPage = () => {
         });
         // navigate("/sell");
       }
+    } catch (err) {
+      console.log("Error creating product!");
+    }
+  };
+  const uploadFile = async () => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append(
+      "upload_preset",
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
+    );
+    try {
+      const res = await utilsService.uploadImage(formData);
+      if (res) {
+        createNewProduct(res.url);
+      }
+    } catch (err) {
+      console.log("Error uploading image to image server");
     }
   };
 
@@ -55,7 +65,7 @@ const SellProductPage = () => {
     <div className="flex justify-center items-center p-4 border-4 ">
       <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick

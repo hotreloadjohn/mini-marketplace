@@ -22,6 +22,11 @@ DB_DATABASE=
 
 Runs the app in the development mode.
 
+# API documentation
+
+Added Swagger-doc (read-only) \
+http://localhost:5000/api-docs/#/
+
 # Installation for Production
 
 [TODO]

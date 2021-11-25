@@ -12,9 +12,10 @@ Install all project dependencies/libaries
 
 This app uses Cloudinary(free tier) for products image hosting so an API key is require. Register for one here: https://cloudinary.com/users/register/free<br />
 
-**\*In file create:\***
-REACT*APP_CLOUDINARY_CLOUD_NAME=\_your cloud name*
-REACT*APP_CLOUDINARY_UPLOAD_PRESET=\_your preset*
+**_In file create:_**
+REACT_APP_CLOUDINARY_CLOUD_NAME=your cloud name
+<br/>
+REACT_APP_CLOUDINARY_UPLOAD_PRESET=your preset
 
 ## 3) Run the app
 

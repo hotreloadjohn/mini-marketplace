@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import MainPage from "./pages/MainPage";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
 import UserProductListing from "./pages/UserProductListing";
 import Footer from "./components/Footer";
 import ProductSearchPage from "./pages/ProductSearchPage";

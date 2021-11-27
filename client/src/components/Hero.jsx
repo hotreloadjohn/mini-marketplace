@@ -1,7 +1,6 @@
 import React from "react";
 import HeroImg from "../assets/heroshop.svg";
 import BannerCarousel from "./BannerCarousel";
-import BannerImg from "../assets/banner.png";
 
 const Hero = () => {
   return (

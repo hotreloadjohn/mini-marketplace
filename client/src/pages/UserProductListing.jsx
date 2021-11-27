@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { selectCurrentUser } from "../features/authSlice";
-import { getProducts } from "../features/productSlice";
 import { useGetUserProductsByIdMutation } from "../services/productApi";
 
 const UserProductListing = () => {
@@ -14,7 +13,7 @@ const UserProductListing = () => {
   // );
 
   const [userProducts, setUserProducts] = useState([]);
-  const [getUserProduct, { isLoading }] = useGetUserProductsByIdMutation();
+  const [getUserProduct] = useGetUserProductsByIdMutation();
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +21,7 @@ const UserProductListing = () => {
       setUserProducts(res.data);
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

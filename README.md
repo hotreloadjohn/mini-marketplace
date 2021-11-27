@@ -26,3 +26,9 @@ You are required to fulfil the following requirements:
 - Search products listed by other users
 
 Please also produce documentation indicating the Web service API listings, Database relationship and setup instructions.
+
+# TODO:
+
+- [ ] Protected routes for user
+- [ ] Refresh token
+- [ ] Improve UI/UX
